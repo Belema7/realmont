@@ -8,7 +8,7 @@ const NavLinks = () => {
     <div className="hidden md:flex items-center gap-8">
       <Link href="/buy" className={base}>Buy</Link>
       <Link href="/rent" className={base}>Rent</Link>
-      <Link href="/agents" className={base}>Agents</Link>
+      {/* <Link href="/agents" className={base}>Agents</Link> */}
       <Link href="/about" className={base}>About</Link>
     </div>
   )

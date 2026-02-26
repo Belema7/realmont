@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
+import UserMenu from "./UserMenu"
 
 const MobileMenu = () => {
   const [open, setOpen] = useState(false)
@@ -22,9 +23,9 @@ const MobileMenu = () => {
                         flex flex-col px-6 py-6 space-y-4">
           <Link href="/buy">Buy</Link>
           <Link href="/rent">Rent</Link>
-          <Link href="/agents">Agents</Link>
+          {/* <Link href="/agents">Agents</Link> */}
           <Link href="/about">About</Link>
-          <Link href="/login">Login</Link>
+          <UserMenu/>
         </div>
       )}
     </div>
