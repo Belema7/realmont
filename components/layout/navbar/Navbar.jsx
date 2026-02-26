@@ -8,13 +8,13 @@ import SearchBtn from "@/components/ui/Search"
 
 const Navbar = () => {
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-[var(--border-color)] bg-[var(--bg-primary)]">
+    <nav className="sticky top-0 z-50 w-full border-b border-(--border-color) bg-(--bg-primary)">
       <div className="max-w-7xl mx-auto h-16 px-4 flex items-center justify-between">
 
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2 text-lg font-semibold text-[var(--text-primary)]"
+          className="flex items-center gap-2 text-lg font-semibold text-(--text-primary)"
         >
           <Building2 size={22} />
           RealMont
@@ -35,7 +35,7 @@ const Navbar = () => {
           <Link
             href="/list-property"
             className="flex items-center gap-2 px-4 py-2 rounded-xl 
-                       bg-[var(--accent)] text-[var(--accent-foreground)]
+                       bg-(--accent) text-(--accent-foreground)
                        hover:opacity-90 transition"
           >
             List Property
