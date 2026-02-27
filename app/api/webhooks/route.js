@@ -56,18 +56,19 @@ export async function POST(req) {
   if (eventType === 'user.created' || eventType === 'user.updated') {
     const { first_name, last_name, image_url, email_addresses } = evt?.data;
     try {
-      const user = await createOrUpdateUser(
+      const user = await createOrUpdateUser({
         id,
         first_name,
         last_name,
         image_url,
-        email_addresses
-      );
+        email_addresses,
+      });
       if (user && eventType === 'user.created') {
         try {
-          await clerkClient.users.updateUserMetadata(id, {
+          const client = await clerkClient();
+          await client.users.updateUserMetadata(id, {
             publicMetadata: {
-              userMogoId: user._id,
+              userMongoId: user._id,
             },
           });
         } catch (error) {
