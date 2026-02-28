@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
+import { useUser, SignOutButton } from "@clerk/nextjs"
 import {
   LayoutDashboard,
   Heart,
@@ -11,86 +11,91 @@ import {
   ChevronDown,
 } from "lucide-react"
 
-const UserMenu = () => {
+export default function UserMenu() {
+  const { isSignedIn, user } = useUser()
   const [open, setOpen] = useState(false)
+  const menuRef = useRef(null)
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
+
+  if (!isSignedIn) {
+    return (
+      <Link
+        href="/sign-in"
+        className="rounded-xl border px-4 py-2 text-sm font-medium hover:bg-muted transition"
+      >
+        Login
+      </Link>
+    )
+  }
 
   return (
-    <div className="relative flex items-center gap-2">
-      {/* Signed Out: Show Login button */}
-      <SignedOut>
+    <div ref={menuRef} className="relative">
+      {/* Trigger */}
+      <button
+        onClick={() => setOpen((prev) => !prev)}
+        className="flex items-center gap-2 rounded-xl px-3 py-2 hover:bg-muted transition"
+      >
+        <img
+          src={user?.imageUrl}
+          alt="User Avatar"
+          className="h-8 w-8 rounded-full object-cover"
+        />
+        <ChevronDown
+          size={16}
+          className={`transition-transform ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      {/* Dropdown */}
+      <div
+        className={`absolute right-0 mt-3 w-56 rounded-2xl border bg-background 
+        shadow-xl p-2 space-y-1 z-50 transition-all duration-200
+        ${open ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}
+      >
         <Link
-          href="/sign-in"
-          className="px-4 py-2 rounded-xl border border-[var(--border-color)]
-                     text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] transition"
+          href="/dashboard"
+          className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm hover:bg-muted transition"
         >
-          Login
+          <LayoutDashboard size={16} />
+          Dashboard
         </Link>
-      </SignedOut>
 
-      {/* Signed In: Show UserButton */}
-      <SignedIn>
-        <div className="relative">
-          <button
-            onClick={() => setOpen(!open)}
-            className="flex items-center gap-2 px-3 py-2 rounded-xl
-                       hover:bg-[var(--bg-secondary)] transition"
-          >
-            <UserButton afterSignOutUrl="/" />
+        <Link
+          href="/saved"
+          className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm hover:bg-muted transition"
+        >
+          <Heart size={16} />
+          Saved Properties
+        </Link>
 
-            <ChevronDown
-              size={16}
-              className="text-[var(--text-secondary)]"
-            />
+        <Link
+          href="/settings"
+          className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm hover:bg-muted transition"
+        >
+          <Settings size={16} />
+          Settings
+        </Link>
+
+        <div className="my-2 border-t" />
+
+        <SignOutButton redirectUrl="/">
+          <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-red-500 hover:bg-red-500/10 transition">
+            <LogOut size={16} />
+            Logout
           </button>
-
-          {open && (
-            <div
-              className="absolute right-0 mt-3 w-56 rounded-2xl
-                         bg-[var(--bg-primary)] border border-[var(--border-color)]
-                         shadow-lg p-2 space-y-1 z-50"
-            >
-              <Link
-                href="/dashboard"
-                className="flex items-center gap-3 px-3 py-2 rounded-lg
-                           hover:bg-[var(--bg-secondary)] text-[var(--text-primary)] transition"
-              >
-                <LayoutDashboard size={16} />
-                Dashboard
-              </Link>
-
-              <Link
-                href="/saved"
-                className="flex items-center gap-3 px-3 py-2 rounded-lg
-                           hover:bg-[var(--bg-secondary)] text-[var(--text-primary)] transition"
-              >
-                <Heart size={16} />
-                Saved Properties
-              </Link>
-
-              <Link
-                href="/settings"
-                className="flex items-center gap-3 px-3 py-2 rounded-lg
-                           hover:bg-[var(--bg-secondary)] text-[var(--text-primary)] transition"
-              >
-                <Settings size={16} />
-                Settings
-              </Link>
-
-              <div className="border-t border-[var(--border-color)] my-2" />
-
-              <UserButton
-                showName={false}
-                appearance={{ elements: { signOutButtonBox: "w-full flex items-center gap-3 px-3 py-2 rounded-lg text-red-500 hover:bg-red-500/10" } }}
-              >
-                <LogOut size={16} />
-                Logout
-              </UserButton>
-            </div>
-          )}
-        </div>
-      </SignedIn>
+        </SignOutButton>
+      </div>
     </div>
   )
 }
-
-export default UserMenu
