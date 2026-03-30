@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { HeroSection } from "@/sections/home/HeroSection";
+import { FullscreenHero } from "@/sections/home/FullscreenHero";
 import {
   FeaturedPropertiesSection,
   FeaturedPropertiesSectionSkeleton,
@@ -10,7 +10,7 @@ import { CTASection } from "@/sections/home/CTASection";
 export default function HomePage() {
   return (
     <div className="flex flex-col">
-      <HeroSection />
+      <FullscreenHero />
       <PropertyTypesSection />
       <Suspense fallback={<FeaturedPropertiesSectionSkeleton />}>
         <FeaturedPropertiesSection />
