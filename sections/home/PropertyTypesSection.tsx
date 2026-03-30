@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { Home, Building2, MapPin } from "lucide-react";
+import Image from "next/image";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 
@@ -15,7 +14,8 @@ export interface PropertyTypeItem {
   title: string;
   description: string;
   href: string;
-  icon: React.ComponentType<{ className?: string }>;
+  imageSrc: string;
+  ctaLabel?: string;
 }
 
 export interface PropertyTypesSectionProps {
@@ -30,21 +30,24 @@ const DEFAULT_ITEMS: PropertyTypeItem[] = [
     title: "House",
     description: "Family-friendly homes with space to grow.",
     href: "/properties?propertyType=house",
-    icon: Home,
+    imageSrc: "/images/house.jpg",
+    ctaLabel: "View Listings",
   },
   {
     key: "apartment",
     title: "Apartment",
     description: "Modern living with great city access.",
     href: "/properties?propertyType=apartment",
-    icon: Building2,
+    imageSrc: "/images/apartment.jpg",
+    ctaLabel: "View Listings",
   },
   {
     key: "land",
     title: "Land",
     description: "Plots for building and long-term investment.",
     href: "/properties?propertyType=land",
-    icon: MapPin,
+    imageSrc: "/images/land.jpg",
+    ctaLabel: "View Listings",
   },
 ];
 
@@ -65,23 +68,41 @@ export function PropertyTypesSection({
 
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {items.map((item) => (
-            <Link key={item.key} href={item.href} className="block">
-              <Card className="transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
-                <CardHeader className="gap-3">
-                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                    <item.icon className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg font-bold">
-                      {item.title}
-                    </CardTitle>
-                    <CardDescription>{item.description}</CardDescription>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    Browse {item.title.toLowerCase()} listings
-                  </p>
+            <Link key={item.key} href={item.href} className="group block">
+              <Card className="h-full gap-0 py-0 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-foreground/20">
+                <div className="relative aspect-[16/10] w-full overflow-hidden">
+                  <Image
+                    src={item.imageSrc}
+                    alt={`${item.title} listings`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+                    priority={item.key === "house"}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0 opacity-90" />
+                </div>
+
+                <CardContent className="flex flex-1 flex-col gap-2 py-5">
+                  <CardTitle className="text-lg font-bold tracking-tight">
+                    {item.title}
+                  </CardTitle>
+                  <CardDescription className="text-sm leading-relaxed">
+                    {item.description}
+                  </CardDescription>
+
+                  {item.ctaLabel ? (
+                    <div className="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                      <span className="transition-colors group-hover:text-primary/85">
+                        {item.ctaLabel}
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className="transition-transform group-hover:translate-x-0.5"
+                      >
+                        →
+                      </span>
+                    </div>
+                  ) : null}
                 </CardContent>
               </Card>
             </Link>
@@ -91,4 +112,3 @@ export function PropertyTypesSection({
     </section>
   );
 }
-
