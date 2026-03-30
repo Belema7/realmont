@@ -15,11 +15,11 @@ export function CTASection({
   return (
     <section className="bg-background text-foreground">
       <div className="max-w-7xl mx-auto px-4 py-20">
-        <div className="rounded-3xl bg-primary text-primary-foreground px-6 py-12 sm:px-10 sm:py-14 text-center">
+        <div className="rounded-3xl bg-white text-gray-900 px-6 py-12 sm:px-10 sm:py-14 text-center border border-border/60 shadow-sm">
           <h2 className="text-3xl sm:text-4xl font-black tracking-tight">
             {headline}
           </h2>
-          <p className="mt-3 text-primary-foreground/80 max-w-2xl mx-auto">
+          <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">
             {description}
           </p>
 
@@ -27,7 +27,7 @@ export function CTASection({
             <Link href={cta.href}>
               <Button
                 size="lg"
-                className="bg-background text-foreground hover:bg-background/90"
+                className="bg-gray-900 text-white hover:bg-gray-800"
               >
                 {cta.label}
               </Button>
@@ -38,4 +38,3 @@ export function CTASection({
     </section>
   );
 }
-
