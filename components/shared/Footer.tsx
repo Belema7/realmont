@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Building2 } from "lucide-react";
+import { BrandLogo } from "@/components/shared/BrandLogo";
 
 export function Footer() {
     return (
@@ -10,7 +10,10 @@ export function Footer() {
                     <div className="space-y-4">
                         <Link href="/" className="flex items-center gap-2">
                             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 text-white">
-                                <Building2 className="h-5 w-5" />
+                                <BrandLogo
+                                    size={20}
+                                    className="h-5 w-5 brightness-0 invert"
+                                />
                             </div>
                             <span className="text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
                                 EstateHub

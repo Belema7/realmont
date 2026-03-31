@@ -16,6 +16,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ThemeToggle } from "./ThemeToggle";
+import { BrandLogo } from "@/components/shared/BrandLogo";
 import {
     Home,
     Building2,
@@ -51,7 +52,11 @@ export function Navbar() {
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-90">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
-                        <Building2 className="h-6 w-6" />
+                        <BrandLogo
+                            size={24}
+                            priority
+                            className="h-6 w-6 brightness-0 invert"
+                        />
                     </div>
                     <span className="text-xl font-heading font-bold tracking-tight text-foreground">
                         EstateHub

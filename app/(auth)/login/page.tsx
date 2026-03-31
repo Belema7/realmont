@@ -9,8 +9,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Building2, Loader2, Mail, Lock, ArrowRight } from "lucide-react";
+import { Loader2, Mail, Lock, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
+import { BrandLogo } from "@/components/shared/BrandLogo";
 
 const loginSchema = z.object({
     email: z.string().email("Invalid email address"),
@@ -74,7 +75,7 @@ export default function LoginPage() {
             <Card className="w-full max-w-md border-border bg-card/80 backdrop-blur-2xl shadow-2xl rounded-[40px] p-2 relative z-10">
                 <CardHeader className="text-center pt-8 pb-4">
                     <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-2xl shadow-primary/20 mb-6 group transition-transform hover:scale-110">
-                        <Building2 className="h-8 w-8" />
+                        <BrandLogo size={32} className="h-8 w-8 brightness-0 invert" />
                     </div>
                     <CardTitle className="text-3xl font-heading font-black tracking-tight">Executive Login</CardTitle>
                     <CardDescription className="text-sm font-medium pt-1">

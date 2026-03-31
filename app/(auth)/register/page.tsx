@@ -22,8 +22,9 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { Building2, Loader2, Mail, Lock, User, Shield, ArrowRight, UserPlus } from "lucide-react";
+import { Loader2, Mail, Lock, User, Shield, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
+import { BrandLogo } from "@/components/shared/BrandLogo";
 
 const registerSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters").max(100),
@@ -107,7 +108,7 @@ export default function RegisterPage() {
             <Card className="w-full max-w-xl border-border bg-card/80 backdrop-blur-2xl shadow-2xl rounded-[40px] p-2 relative z-10">
                 <CardHeader className="text-center pt-8 pb-4">
                     <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-2xl shadow-primary/20 mb-6 group transition-transform hover:scale-110">
-                        <UserPlus className="h-8 w-8" />
+                        <BrandLogo size={32} className="h-8 w-8 brightness-0 invert" />
                     </div>
                     <CardTitle className="text-3xl font-heading font-black tracking-tight">Create Partnership</CardTitle>
                     <CardDescription className="text-sm font-medium pt-1">
